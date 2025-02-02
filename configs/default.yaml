@@ -1,0 +1,20 @@
+dataset:
+  name: "Cityscapes"
+  root: "./data"
+  batch_size: 1
+  num_workers: 4
+
+model:
+  name: "HRNet"
+  input_size: [1024, 2048]
+  pretrained: True
+
+training:
+  epochs: 50
+  optimizer: "Adam"
+  learning_rate: 0.001
+  loss_function: "CrossEntropyLoss"
+
+logging:
+  log_dir: "./results/logs"
+  save_model_dir: "./results/models"
