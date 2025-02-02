@@ -431,4 +431,4 @@ def get_model():
     if checkpoint := model_config.get("checkpoint"):
         print(f"📂 Loading checkpoint: {checkpoint}")
         model.load_state_dict(torch.load(checkpoint, map_location="cpu", weights_only=True))
-    return model.eval()
+    return model
