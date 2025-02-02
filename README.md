@@ -5,6 +5,9 @@ Semantic image segmentation is a fundamental computer vision task that involves 
 
 This project introduces **Mini-HRNet**, a scaled-down version of HRNet that retains modest performance while being more efficient. The model was tested on the **Cityscapes** dataset and achieved **66% mean intersection over union (mIoU) on the validation set** and **64% on the test set**, using only **13% of the trainable parameters** of the original HRNet.
 
+**Thesis Link:** [Mini-HRNet Research Paper](https://www.proquest.com/docview/3075562303?pq-origsite=gscholar&fromopenview=true&sourcetype=Dissertations%20&%20Theses?)
+
+
 ## 🔍 Key Features
 - **Lightweight Architecture**: Three different approaches were explored to scale down HRNet while preserving accuracy.
 - **Efficient Training**: The model was trained on a Mobile RTX 4070 GPU with limited batch sizes.
