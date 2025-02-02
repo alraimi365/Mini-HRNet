@@ -1,62 +1,52 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
+from torchsummary import summary
+from datasets.cityscapes_loader import load_cityscapes
+from models.model import get_model
 from config_loader import ConfigLoader
+from models.losses import get_loss_function
 
-# Load Config
-config = ConfigLoader()
+def main():
+    # Load Configuration
+    config = ConfigLoader()
 
-# Dataset Settings
-dataset_root = config.get("dataset")["root"]
-batch_size = config.get("dataset")["batch_size"]
-num_workers = config.get("dataset")["num_workers"]
+    # Load Dataset
+    print("🔄 Loading dataset...")
+    train_loader, val_loader, test_loader = load_cityscapes()
+    print("✅ Dataset loaded successfully!")
 
-# Model Settings
-model_name = config.get("model")["name"]
-pretrained = config.get("model")["pretrained"]
+    # Print Dataset Info
+    train_samples = len(train_loader.dataset)
+    val_samples = len(val_loader.dataset)
+    sample_batch = next(iter(train_loader))  # This line caused the error
+    print(f"📊 Training Samples: {train_samples}, Validation Samples: {val_samples}")
+    print(f"🖼️ Sample Batch Shape: {sample_batch[0].shape} (Images), {sample_batch[1].shape} (Labels)")
 
-# Training Settings
-epochs = config.get("training")["epochs"]
-learning_rate = config.get("training")["learning_rate"]
-loss_function = config.get("training")["loss_function"]
-optimizer_name = config.get("training")["optimizer"]
+    # Load Model
+    print("🔄 Loading model...")
+    model = get_model()
+    print("✅ Model loaded successfully!")
 
-# Logging Settings
-log_dir = config.get("logging")["log_dir"]
-save_model_dir = config.get("logging")["save_model_dir"]
+    # Check device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
 
-# Dummy Dataset (Replace with Cityscapes later)
-transform = transforms.Compose([transforms.ToTensor()])
-train_dataset = datasets.FakeData(transform=transform)
-train_loader = DataLoader(train_dataset, batch_size=batch_size, num_workers=num_workers)
+    # Print Model Summary
+    print("\n📌 Model Summary:")
+    summary(model, (3, 512, 1024))
 
-# Dummy Model (Replace with HRNet later)
-model = nn.Linear(10, 2)
+    # Load loss function dynamically
+    loss_function = get_loss_function()
+    optimizer = optim.Adam(model.parameters(), lr=config.get("training")["learning_rate"])
 
-# Select Loss Function
-loss_fn = nn.CrossEntropyLoss()
+    # Placeholder Training Loop
+    print("\n🔹 Placeholder Training Loop (To be implemented)...")
+    for epoch in range(config.get("training")["epochs"]):
+        print(f"Epoch {epoch+1}/{config.get('training')['epochs']} - Training... (placeholder)")
 
-# Select Optimizer
-if optimizer_name == "Adam":
-    optimizer = optim.Adam(model.parameters(), lr=learning_rate)
-elif optimizer_name == "SGD":
-    optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=0.9)
+    print("🚀 Model & dataset loaded successfully. Training loop to be implemented.")
 
-# Training Loop (Basic)
-print(f"Training {model_name} for {epochs} epochs...")
-
-for epoch in range(epochs):
-    for batch in train_loader:
-        inputs, labels = batch
-        outputs = model(inputs.view(inputs.size(0), -1))  # Flatten input
-
-        loss = loss_fn(outputs, labels)
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item():.4f}")
-
-print("Training Complete!")
+# Ensure the script runs correctly on Windows
+if __name__ == '__main__':
+    main()

@@ -2,18 +2,24 @@ dataset:
   name: "Cityscapes"
   root: "./data"
   batch_size: 1
-  num_workers: 4
+  num_workers: 8
+  image_size: [512, 1024]  # Height, Width
+  augmentations: True
 
 model:
-  name: "HRNet"
-  input_size: [1024, 2048]
-  pretrained: True
+  name: "MiniHRNet"
+  num_of_stages: 4
+  stages_rep: 1
+  num_of_kernals: [48, 60, 72, 84]
+  image_size: [512, 1024]
+  pretrained: False
 
 training:
   epochs: 50
   optimizer: "Adam"
   learning_rate: 0.001
   loss_function: "CrossEntropyLoss"
+  weight_option: "hrnet"  # Choose from: hrnet, sqrt_freq, inv_freq, none
 
 logging:
   log_dir: "./results/logs"
