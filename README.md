@@ -1,5 +1,4 @@
-# Mini-HRNet: Lightweight Semantic Segmentation
-# Thesis Title: Semantic Image Segmentation using a Modified HRNet
+# Mini-HRNet: Semantic Image Segmentation using a Modified HRNet
 
 ## 📌 Overview
 Semantic image segmentation is a fundamental computer vision task that involves classifying each pixel in an image into predefined categories, such as road, sky, or car. This task is critical in various real-world applications, including medical imaging and autonomous driving. High-Resolution Networks (HRNet) are among the most effective architectures for this task. However, HRNet is computationally expensive and requires significant resources to train from scratch.
