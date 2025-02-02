@@ -24,8 +24,8 @@ def norm_controller(channels, momentum=BN_MOMENTUM):
     Every normalization goes through this function
     The point of this is to test other normalization techniques by replacing only the code here
     '''
-    norm = nn.BatchNorm2d(channels, momentum=momentum)
-    # norm = nn.InstanceNorm2d(channels, momentum=momentum)
+    # norm = nn.BatchNorm2d(channels, momentum=momentum)
+    norm = nn.InstanceNorm2d(channels, momentum=momentum)
     # norm = nn.GroupNorm(num_channels=channels, num_groups=1, affine=False)
     return norm
 
@@ -426,10 +426,9 @@ class MiniHRNet(nn.Module):
         return out
 
 def get_model():
+    """Initialize Mini-HRNet and load weights if available."""
     model = MiniHRNet(model_config)
-    model.init_weights()
-    # x = torch.rand((1, 3, 512, 1024))
-    # y = model(x)
-    return model
-
-get_model()
+    if checkpoint := model_config.get("checkpoint"):
+        print(f"📂 Loading checkpoint: {checkpoint}")
+        model.load_state_dict(torch.load(checkpoint, map_location="cpu", weights_only=True))
+    return model.eval()
