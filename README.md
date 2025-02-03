@@ -21,7 +21,7 @@ Three architectural modifications were tested:
 2. **Limiting stage repetitions** to enhance efficiency.
 3. **Redesigning the core components**, including replacing the basic block and restructuring the main stages.
 
-Among these, **Approach 3** achieved the best balance of efficiency and performance.
+Among these, **Approach 3** achieved the best balance of efficiency and performance, which is the one available ar this project.
 
 ## ⏳ Challenges & Limitations
 - **Hardware Constraints**: Training required approximately **30 minutes per epoch**, totaling **10 days per model**.
@@ -52,10 +52,10 @@ cd mini-hrnet
 pip install -r requirements.txt
 ```
 
-## 🚀 Training the Model
-To start training, run:
+## 🚀 Testing the Model
+To start testing, run:
 ```bash
-python train.py
+python test.py
 ```
 Configurations can be adjusted in `configs/default.yaml`.
 
