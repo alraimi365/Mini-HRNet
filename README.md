@@ -21,7 +21,7 @@ Three architectural modifications were tested:
 2. **Limiting stage repetitions** to enhance efficiency.
 3. **Redesigning the core components**, including replacing the basic block and restructuring the main stages.
 
-Among these, **Approach 3** achieved the best balance of efficiency and performance, which is the one available ar this project.
+Among these, **Approach 3** achieved the best balance of efficiency and performance, which is the one available at this project.
 
 ## ⏳ Challenges & Limitations
 - **Hardware Constraints**: Training required approximately **30 minutes per epoch**, totaling **10 days per model**.
@@ -49,7 +49,7 @@ Ensure the dataset follows this structure:
 ```bash
 git clone https://github.com/alraimi365/mini-hrnet.git
 cd mini-hrnet
-pip install -r requirements.txt
+conda env create -f environment.yml
 ```
 
 ## 🚀 Testing the Model
@@ -67,3 +67,7 @@ This project is open-source and available under the GPLv3 License.
 ### 📩 Contact
 For questions or collaborations, feel free to reach out!
 Email: alraimi365@gmail.com
+
+## Notes
+1) The code is still under development. If you faced any problems, please raise an issue.
+2) The training script is still under development, but the test script is working perfectly. It runs the trained model on the validation set and and shows the mean IoU, accuracy, and loss. 
