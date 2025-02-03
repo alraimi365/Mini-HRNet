@@ -361,7 +361,7 @@ class MiniHRNet(nn.Module):
 
         self.num_of_stages = model_dict["num_of_stages"] # * number of streams, ex: 4
         self.stages_rep = model_dict["stages_rep"] # * how many each stage is repeated, ex: 4
-        self.num_of_kernals = model_dict["num_of_kernals"] # * number of kernals (channels) for each stage, ex: [48, 96, 144, 192] 
+        self.num_of_kernals = model_dict["num_of_kernels"] # * number of kernals (channels) for each stage, ex: [48, 96, 144, 192] 
         
         if self.num_of_stages < 2 or self.num_of_stages != len(self.num_of_kernals): #! catching invalid configurations. however, it is not conclusive. so please always check config.
             raise ValueError("Invalid model configuration!")

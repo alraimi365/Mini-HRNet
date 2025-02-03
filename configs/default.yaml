@@ -1,3 +1,6 @@
+# ---------------------------
+# 🌍 Dataset Settings
+# ---------------------------
 dataset:
   name: "Cityscapes"
   root: "./data"
@@ -5,14 +8,22 @@ dataset:
   num_workers: 4
   image_size: [512, 1024]  # Height, Width
   augmentations: True
+  num_classes: 19
+  ignore_value: 19  # Label ID to ignore during evaluation
 
+# ---------------------------
+# 🏗️ Model Settings
+# ---------------------------
 model:
   name: "Mini-HRNet_v3"
   checkpoint: "checkpoints/model_v3_weights.pth"
   num_of_stages: 4
   stages_rep: 1
-  num_of_kernals: [48, 60, 72, 84]
+  num_of_kernels: [48, 60, 72, 84]
 
+# ---------------------------
+# 🎯 Training Settings
+# ---------------------------
 training:
   epochs: 50
   optimizer: "Adam"
@@ -20,6 +31,18 @@ training:
   loss_function: "CrossEntropyLoss"
   weight_option: "hrnet"  # Choose from: hrnet, sqrt_freq, inv_freq, none
 
+# ---------------------------
+# 🔍 Evaluation & Testing
+# ---------------------------
+test:
+  inference_mode: "normal"  # Options: "normal", "multi_scale"
+  print_freq: 100  # Print results every N batches
+  save_results: True  # Whether to save IoU results to a file
+
+# ---------------------------
+# 📂 Logging & Output Paths
+# ---------------------------
 logging:
   log_dir: "./results/logs"
   save_model_dir: "./results/models"
+  iou_results_path: "./results/iou_results.json"
